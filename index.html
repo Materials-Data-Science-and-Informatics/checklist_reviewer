@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checklist Reviewer Toolkit</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="container hero-split">
+            <div class="hero-text fade-in hero-text--reveal">
+                <h1>Checklist Reviewer Toolkit</h1>
+                <h2>Beyond Static Checklists</h2>
+                <div class="hero-meta">
+                    <p class="authors">Hamed Hemati¹, Alicia Janz¹, Stefan Sandfeld¹</p>
+                    <p class="affiliation">¹IAS-9, Forschungszentrum Jülich</p>
+                </div>
+                <div class="hero-logos" aria-label="Affiliated institutions">
+                    <img class="hero-logo" src="assets/logo_ias9.png" alt="IAS-9" height="34" decoding="async">
+                    <img class="hero-logo" src="assets/logo_fzj.png" alt="Forschungszentrum Jülich" height="34" decoding="async">
+                    <img class="hero-logo" src="assets/logo_dkz.png" alt="DKZ" height="34" decoding="async">
+                </div>
+                <div class="cta-group">
+                    <a href="#motivation" class="btn btn-primary">Toolkit Purpose</a>
+                    <a href="#toolkit" class="btn btn-secondary">Explore the Toolkit</a>
+                    <a href="#poster" class="btn btn-tertiary">Poster at the HMC Conference 2026</a>
+                </div>
+            </div>
+            
+            <div class="hero-visual fade-in-right delay-1">
+                <div class="mock-doc mock-doc--live" data-hero-demo aria-label="Interactive demo: upload, checklist review, and analysis">
+                    <div class="hero-demo-progress" aria-hidden="true">
+                        <span class="hero-demo-progress-dot is-active" data-step-dot="0" aria-hidden="true"></span>
+                        <span class="hero-demo-progress-dot" data-step-dot="1" aria-hidden="true"></span>
+                        <span class="hero-demo-progress-dot" data-step-dot="2" aria-hidden="true"></span>
+                    </div>
+
+                    <div class="mock-doc-scenes">
+                        <!-- Scene 1: upload + process -->
+                        <div class="mock-doc-scene is-active" data-hero-scene="setup" aria-hidden="false">
+                            <div class="mock-doc-heading">
+                                <p class="mock-doc-title">Start a reproducibility review</p>
+                            </div>
+                            <div class="hero-demo-upload">
+                                <div class="hero-demo-dropzone hero-demo-dropzone--empty" data-hero-dropzone>
+                                    <div class="hero-demo-dropzone-icon" aria-hidden="true">
+                                        <i class="fa-regular fa-file-pdf"></i>
+                                    </div>
+                                    <div class="hero-demo-dropzone-body">
+                                        <p class="hero-demo-filename hero-demo-filename--hidden" data-hero-filename>ml_repro_paper.pdf</p>
+                                        <p class="hero-demo-drop-hint" data-hero-drop-hint>Drop PDF or click to upload</p>
+                                        <p class="hero-demo-dropzone-meta hero-demo-upload-meta--hidden" data-hero-upload-meta>
+                                            <span class="hero-demo-upload-bar" data-hero-upload-bar aria-hidden="true"></span>
+                                            <span data-hero-upload-status>Uploading…</span>
+                                        </p>
+                                    </div>
+                                    <span class="hero-demo-badge hero-demo-badge--hidden" data-hero-upload-badge aria-hidden="true"><i class="fa-solid fa-arrow-up-from-bracket"></i></span>
+                                </div>
+                                <div class="hero-demo-fields">
+                                    <div class="hero-demo-field">
+                                        <span class="hero-demo-field-label" id="hero-dd-lbl-checklist">Checklist</span>
+                                        <div class="hero-demo-dd" data-hero-dd="checklist" aria-labelledby="hero-dd-lbl-checklist">
+                                            <button type="button" class="hero-demo-dd-trigger" data-hero-dd-trigger="checklist" tabindex="-1" aria-hidden="true">
+                                                <span class="hero-demo-dd-value" data-dd-checklist-display>Select checklist…</span>
+                                                <i class="fa-solid fa-chevron-down hero-demo-dd-chevron" aria-hidden="true"></i>
+                                            </button>
+                                            <ul class="hero-demo-dd-menu" role="listbox" aria-hidden="true">
+                                                <li>
+                                                    <button type="button" class="hero-demo-dd-option" data-hero-dd-opt="checklist-my-ml">My ML Reproducibility Checklist</button>
+                                                </li>
+                                                <li>
+                                                    <button type="button" class="hero-demo-dd-option" data-hero-dd-opt="checklist-neurips">NeurIPS Reproducibility Checklist</button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="hero-demo-field">
+                                        <span class="hero-demo-field-label" id="hero-dd-lbl-process">Review process</span>
+                                        <div class="hero-demo-dd" data-hero-dd="process" aria-labelledby="hero-dd-lbl-process">
+                                            <button type="button" class="hero-demo-dd-trigger" data-hero-dd-trigger="process" tabindex="-1" aria-hidden="true">
+                                                <span class="hero-demo-dd-value" data-dd-process-display>Select process…</span>
+                                                <i class="fa-solid fa-chevron-down hero-demo-dd-chevron" aria-hidden="true"></i>
+                                            </button>
+                                            <ul class="hero-demo-dd-menu" role="listbox" aria-hidden="true">
+                                                <li>
+                                                    <button type="button" class="hero-demo-dd-option" data-hero-dd-opt="process-simple">Simple Review</button>
+                                                </li>
+                                                <li>
+                                                    <button type="button" class="hero-demo-dd-option" data-hero-dd-opt="process-advanced">Advanced Review</button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="button" class="hero-demo-cta">
+                                    <span class="hero-demo-cta-label">Run Review</span>
+                                    <i class="fa-solid fa-arrow-right hero-demo-cta-icon" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                            <div class="mock-doc-continued mock-doc-continued--hero" role="presentation">
+                                <p class="hero-demo-hint">Step 1 · Upload PDF, choose checklist and process, then run the review.</p>
+                            </div>
+                        </div>
+
+                        <!-- Scene 2: live checklist -->
+                        <div class="mock-doc-scene" data-hero-scene="review" aria-hidden="true">
+                            <div class="mock-doc-heading">
+                                <p class="mock-doc-title">My ML Reproducibility Checklist</p>
+                            </div>
+
+                            <div class="check-row check-row--pending hero-check-row" data-check-idx="0">
+                                <div class="check-box"><i class="fa-regular fa-circle check-icon-pending" aria-hidden="true"></i></div>
+                                <div class="check-text">Does it provide the checkpoints of the trained models?</div>
+                            </div>
+
+                            <div class="check-row check-row--pending hero-check-row" data-check-idx="1">
+                                <div class="check-box"><i class="fa-regular fa-circle check-icon-pending" aria-hidden="true"></i></div>
+                                <div class="check-text">Does it provide theoretical proofs for all claims?</div>
+                            </div>
+
+                            <div class="check-row check-row--pending hero-check-row" data-check-idx="2">
+                                <div class="check-box"><i class="fa-regular fa-circle check-icon-pending" aria-hidden="true"></i></div>
+                                <div class="check-text">Is the space complexity of the proposed method <em>O(N<sup>2</sup>)</em>?</div>
+                            </div>
+
+                            <div class="mock-doc-continued mock-doc-continued--hero" role="presentation">
+                                <p class="hero-demo-hint">Step 2 · Each checklist item is verified in order with evidence-backed outcomes.</p>
+                            </div>
+                        </div>
+
+                        <!-- Scene 3: analysis -->
+                        <div class="mock-doc-scene" data-hero-scene="analysis" aria-hidden="true">
+                            <div class="mock-doc-heading">
+                                <p class="mock-doc-title">Run insights</p>
+                            </div>
+                            <div class="hero-demo-analysis">
+                                <div class="hero-demo-stat hero-demo-stat--pass">
+                                    <span class="hero-demo-stat-label">Satisfied</span>
+                                    <span class="hero-demo-stat-value" data-analysis-pass>2</span>
+                                    <span class="hero-demo-stat-sub">of 3 criteria</span>
+                                </div>
+                                <div class="hero-demo-stat hero-demo-stat--warn">
+                                    <span class="hero-demo-stat-label">Needs attention</span>
+                                    <span class="hero-demo-stat-value" data-analysis-warn>1</span>
+                                    <span class="hero-demo-stat-sub">flagged for follow-up</span>
+                                </div>
+                                <div class="hero-demo-stat hero-demo-stat--score">
+                                    <span class="hero-demo-stat-label">Reproducibility score</span>
+                                    <div class="hero-demo-meter" aria-hidden="true">
+                                        <span class="hero-demo-meter-fill" style="--score: 0.67"></span>
+                                    </div>
+                                    <span class="hero-demo-stat-sub"><strong data-analysis-score-label>67%</strong> aligned with checklist</span>
+                                </div>
+                            </div>
+                            <div class="mock-doc-continued mock-doc-continued--hero" role="presentation">
+                                <p class="hero-demo-hint">Step 3 · Summaries and aggregates roll up for reporting and human verification.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hero-demo-cursor" data-hero-cursor aria-hidden="true">
+                        <span class="hero-demo-cursor-core">
+                            <span class="hero-demo-cursor-ring hero-demo-cursor-ring--outer" aria-hidden="true"></span>
+                            <span class="hero-demo-cursor-ring hero-demo-cursor-ring--inner" aria-hidden="true"></span>
+                            <span class="hero-demo-cursor-dot" aria-hidden="true"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Motivation Section -->
+    <section id="motivation" class="section">
+        <div class="container">
+            <h2 class="section-title text-center fade-in">Toolkit Purpose</h2>
+            <p class="section-subtitle text-center fade-in delay-1">How do we verify research when publications are scaling faster than human reviewers?</p>
+            
+            <div class="motivation-workflow-container mt-4 fade-in delay-2 mb-4">
+                <div class="motivation-cards">
+                    <div class="card motivation-card clickable" onclick="openInfoModal('manual')">
+                        <div class="card-icon"><i class="fa-solid fa-users-viewfinder text-danger"></i></div>
+                        <h3>Manual</h3>
+                        <div class="status bad">- Expensive</div>
+                    </div>
+                    <div class="card motivation-card clickable" onclick="openInfoModal('llm')">
+                        <div class="card-icon"><i class="fa-solid fa-robot text-danger"></i></div>
+                        <h3>LLM-Based</h3>
+                        <div class="status bad">- Hallucination</div>
+                    </div>
+                    <div class="card motivation-card highlight clickable" onclick="openInfoModal('agentic')">
+                        <div class="card-icon"><i class="fa-solid fa-network-wired text-success"></i></div>
+                        <h3>Agentic Workflow</h3>
+                        <div class="status bad">- Powerful but difficult to implement</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Toolkit Components -->
+    <section id="toolkit" class="section bg-light">
+        <div class="container">
+            <h2 class="section-title text-center fade-in">Toolkit Components</h2>
+            <p class="section-subtitle text-center fade-in delay-1">A complete, end-to-end pipeline for rigorous metadata assessment.</p>
+
+            <div class="toolkit-process mt-4 fade-in delay-2">
+                <div class="grid-4">
+                    <div class="card component-card clickable slide-up" onclick="openInfoModal('data_collection')">
+                        <div class="step-num">1</div>
+                        <div class="card-icon text-primary"><i class="fa-solid fa-folder-tree"></i></div>
+                        <h3>Data Collection</h3>
+                    </div>
+                    <div class="card component-card clickable slide-up delay-1" onclick="openInfoModal('review_process')">
+                        <div class="step-num">2</div>
+                        <div class="card-icon text-accent"><i class="fa-solid fa-gears"></i></div>
+                        <h3>Review Process</h3>
+                    </div>
+                    <div class="card component-card clickable slide-up delay-2" onclick="openInfoModal('human_verification')">
+                        <div class="step-num">3</div>
+                        <div class="card-icon text-success"><i class="fa-solid fa-user-check"></i></div>
+                        <h3>Human Verification</h3>
+                    </div>
+                    <div class="card component-card clickable slide-up delay-3" onclick="openInfoModal('analysis')">
+                        <div class="step-num">4</div>
+                        <div class="card-icon text-warning"><i class="fa-solid fa-chart-pie"></i></div>
+                        <h3>Analysis</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dynamic Process Designer -->
+    <section id="designer" class="section designer-section">
+        <div class="container">
+            <div class="flex-layout align-center mb-4">
+                <div class="flex-1 pr-4 fade-in-left">
+                    <h2 class="section-title">Dynamic Process Designer</h2>
+                    <p class="text-large mb-2">Build complex review workflows visually.</p>
+                    <p>Our toolkit features a node-based review process designer. Instead of hard-coding the logic, researchers can obtain various outputs for the same collection and checklist by composing tools as "agents".</p>
+                    <ul class="feature-list mt-3">
+                        <li><i class="fa-solid fa-check text-success"></i> Model-driven agentic process</li>
+                        <li><i class="fa-solid fa-check text-success"></i> Workflow transparency</li>
+                        <li><i class="fa-solid fa-check text-success"></i> Explainability for all outputs</li>
+                    </ul>
+                </div>
+                <div class="flex-1 flex-center fade-in-right">
+                    <div class="interactive-diagram">
+                        <div class="diagram-node input-node">Input (PDF)</div>
+                        <i class="fa-solid fa-arrow-right"></i>
+                        <div class="diagram-node core-node">
+                            Question Reviewer
+                            <div class="agent-cluster">
+                                <span class="agent github" tooltip="GitHub Checker"><i class="fab fa-github"></i></span>
+                                <span class="agent material" tooltip="Materials Science"><i class="fa-solid fa-flask"></i></span>
+                                <span class="agent db" tooltip="Local DB"><i class="fa-solid fa-database"></i></span>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-arrow-right"></i>
+                        <div class="diagram-node output-node">Output (Markdown)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="diagram-wrapper designer-interactive-wrap mt-4 fade-in delay-2">
+                <p class="designer-interactive-lead">Click <strong>GitHub</strong>, <strong>Materials</strong>, or the <strong>agentic process</strong> card to open details.</p>
+                <div class="designer-interactive-grid">
+                    <div class="designer-review-assembly">
+                        <div class="designer-canvas" aria-label="Review process diagram">
+                            <div class="designer-window-tab" role="presentation">Review Process</div>
+                            <div class="designer-window-body">
+                                <div class="designer-stage designer-stage--input">
+                                    <div class="designer-node designer-node--io">
+                                        <i class="fa-regular fa-file-pdf" aria-hidden="true"></i>
+                                        <span>Input</span>
+                                        <span class="designer-node-sub">PDF</span>
+                                    </div>
+                                </div>
+                                <div class="designer-stage designer-stage--arrow-h" aria-hidden="true">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </div>
+                                <div class="designer-stage designer-stage--center">
+                                    <div class="designer-node designer-node--core">
+                                        <div class="designer-core-head">
+                                            <i class="fa-solid fa-clipboard-question" aria-hidden="true"></i>
+                                            <span>Question reviewer</span>
+                                        </div>
+                                        <div class="designer-agent-strip">
+                                            <button type="button" class="designer-hit designer-agent-chip designer-agent-chip--github" data-designer-key="designer_github" aria-label="GitHub checker—show details">
+                                                <i class="fab fa-github" aria-hidden="true"></i>
+                                                <span>GitHub</span>
+                                            </button>
+                                            <button type="button" class="designer-hit designer-agent-chip designer-agent-chip--material" data-designer-key="designer_materials" aria-label="Materials specialist—show details">
+                                                <i class="fa-solid fa-flask" aria-hidden="true"></i>
+                                                <span>Materials</span>
+                                            </button>
+                                            <span class="designer-agent-chip designer-agent-chip--db" title="Local database tools">
+                                                <i class="fa-solid fa-database" aria-hidden="true"></i>
+                                                <span>Local DB</span>
+                                            </span>
+                                            <span class="designer-agent-more" aria-hidden="true"><i class="fa-solid fa-plus"></i> …</span>
+                                        </div>
+                                    </div>
+                                    <div class="designer-stage--arrow-inline" aria-hidden="true">
+                                        <i class="fa-solid fa-arrow-right"></i>
+                                    </div>
+                                    <div class="designer-node designer-node--io designer-node--out">
+                                        <i class="fa-solid fa-file-lines" aria-hidden="true"></i>
+                                        <span>Output</span>
+                                        <span class="designer-node-sub">Checklist / MD</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="designer-agentic-aside">
+                            <button type="button" class="designer-hit designer-agentic-card" data-designer-key="designer_agentic" aria-label="Model-driven agentic process—show details">
+                                <span class="designer-agentic-label">Model-driven agentic process</span>
+                                <div class="designer-mini-graph" aria-hidden="true">
+                                    <div class="designer-mini-row">
+                                        <span class="mini-node"></span><i class="mini-link fa-solid fa-arrow-right"></i><span class="mini-node mini-node--accent"></span><i class="mini-link fa-solid fa-arrow-right"></i><span class="mini-node"></span>
+                                    </div>
+                                    <div class="designer-mini-fork"><i class="fa-solid fa-code-branch"></i></div>
+                                    <div class="designer-mini-row designer-mini-row--bottom">
+                                        <span class="mini-node mini-node--sm"></span><span class="mini-node mini-node--sm"></span><span class="mini-node mini-node--sm"></span>
+                                    </div>
+                                </div>
+                                <span class="designer-agentic-hint">Non-linear routing between agents</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features & Capabilities -->
+    <section id="features" class="section bg-light">
+        <div class="container">
+            <h2 class="section-title text-center fade-in">Key Capabilities</h2>
+            
+            <div class="grid-3 mt-4">
+                <div class="card feature-card hover-glow fade-in delay-1">
+                    <i class="fa-solid fa-microchip icon-large text-primary"></i>
+                    <h3>Freedom of Choice</h3>
+                    <p>Choose your backbone model for each component. Supports local execution (Ollama) and remote (Google GenAI, LiteLLM) with customized reasoning levels.</p>
+                </div>
+                <div class="card feature-card hover-glow fade-in delay-2">
+                    <i class="fa-solid fa-plug icon-large text-accent"></i>
+                    <h3>External Tools</h3>
+                    <p>Agents can dynamically call external tools for "claim verification", querying databases, fetching code repositories, or running scripts.</p>
+                </div>
+                <div class="card feature-card hover-glow fade-in delay-3">
+                    <i class="fa-solid fa-puzzle-piece icon-large text-success"></i>
+                    <h3>Modular Extension</h3>
+                    <p>New components can be added without hard rewiring. Embrace non-deterministic, evolving workflows built on a plug-and-play architecture.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Poster Viewer Section -->
+    <section id="poster" class="section">
+        <div class="container text-center">
+            <h2 class="section-title fade-in">Poster at the HMC Conference 2026</h2>
+            <div class="poster-host fade-in delay-1" aria-label="Conference branding">
+                <span class="poster-host-label">Presented at the HMC Conference 2026</span>
+                <img class="poster-host-logo" src="assets/logo_hmc.png" alt="HMC Conference" decoding="async">
+            </div>
+            <div class="poster-container fade-in delay-2" onclick="openModal()">
+                <img src="assets/poster.png" alt="Checklist Reviewer Poster" class="poster-thumbnail">
+                <div class="poster-overlay">
+                    <i class="fa-solid fa-magnifying-glass-plus"></i> View Full Poster
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>Checklist Reviewer Toolkit</h3>
+                </div>
+                <div class="footer-links">
+                    <a href="https://github.com/materials-data-science-and-informatics" target="_blank"><i class="fab fa-github"></i> IAS-9 GitHub</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+            </div>
+        </div>
+    </footer>
+
+    <!-- Image Modal -->
+    <div id="imageModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="fullPoster">
+    </div>
+
+    <!-- Info Modal -->
+    <div id="infoModal" class="modal info-modal">
+        <div class="modal-content info-content">
+            <span class="close" onclick="closeInfoModal()">&times;</span>
+            <div class="modal-header">
+                <div class="modal-icon" id="infoModalIcon"></div>
+                <h2 id="infoModalTitle">Title</h2>
+            </div>
+            <div class="modal-body" id="infoModalBody">
+                Content goes here.
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
