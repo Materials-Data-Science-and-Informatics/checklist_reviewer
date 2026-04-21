@@ -21,14 +21,29 @@
                     <p class="affiliation">¹IAS-9, Forschungszentrum Jülich</p>
                 </div>
                 <div class="hero-logos" aria-label="Affiliated institutions">
-                    <img class="hero-logo" src="assets/logo_ias9.png" alt="IAS-9" height="34" decoding="async">
-                    <img class="hero-logo" src="assets/logo_fzj.png" alt="Forschungszentrum Jülich" height="34" decoding="async">
-                    <img class="hero-logo" src="assets/logo_dkz.png" alt="DKZ" height="34" decoding="async">
+                    <a href="https://www.fz-juelich.de/en/ias/ias-9/" target="_blank" rel="noopener noreferrer" aria-label="IAS-9 website (opens in a new tab)">
+                        <img class="hero-logo" src="assets/logo_ias9.png" alt="IAS-9" height="34" decoding="async">
+                    </a>
+                    <a href="https://www.fz-juelich.de/" target="_blank" rel="noopener noreferrer" aria-label="Forschungszentrum Jülich website (opens in a new tab)">
+                        <img class="hero-logo" src="assets/logo_fzj.png" alt="Forschungszentrum Jülich" height="34" decoding="async">
+                    </a>
+                    <a href="https://www.dkz2r.de" target="_blank" rel="noopener noreferrer" aria-label="DKZ.2R website (opens in a new tab)">
+                        <img class="hero-logo" src="assets/logo_dkz.png" alt="DKZ.2R" height="34" decoding="async">
+                    </a>
                 </div>
                 <div class="cta-group">
-                    <a href="#motivation" class="btn btn-primary">Toolkit Purpose</a>
-                    <a href="#toolkit" class="btn btn-secondary">Explore the Toolkit</a>
-                    <a href="#poster" class="btn btn-tertiary">Poster at the HMC Conference 2026</a>
+                    <a href="#poster" class="btn btn-tertiary">
+                        <i class="fa-regular fa-image" aria-hidden="true"></i>
+                        <span>Poster at the HMC Conference 2026</span>
+                    </a>
+                    <a href="#" class="btn btn-primary is-disabled" aria-disabled="true" tabindex="-1" title="Coming soon">
+                        <i class="fab fa-github" aria-hidden="true"></i>
+                        <span>GitHub repo</span>
+                    </a>
+                    <a href="#" class="btn btn-secondary is-disabled" aria-disabled="true" tabindex="-1" title="Coming soon">
+                        <i class="fa-solid fa-laptop-code" aria-hidden="true"></i>
+                        <span>Playground</span>
+                    </a>
                 </div>
             </div>
             
@@ -368,15 +383,23 @@
     <section id="poster" class="section">
         <div class="container text-center">
             <h2 class="section-title fade-in">Poster at the HMC Conference 2026</h2>
-            <div class="poster-host fade-in delay-1" aria-label="Conference branding">
-                <span class="poster-host-label">Presented at the HMC Conference 2026</span>
-                <img class="poster-host-logo" src="assets/logo_hmc.png" alt="HMC Conference" decoding="async">
-            </div>
+            <a class="poster-host-link fade-in delay-1" href="https://helmholtz-metadaten.de/events/hmc-conference-2026" target="_blank" rel="noopener noreferrer" aria-label="Open HMC Conference 2026 event page (opens in a new tab)">
+                <div class="poster-host" aria-label="Conference branding">
+                    <span class="poster-host-label">Presented at the HMC Conference 2026</span>
+                    <img class="poster-host-logo" src="assets/logo_hmc.png" alt="HMC Conference" decoding="async">
+                </div>
+            </a>
             <div class="poster-container fade-in delay-2" onclick="openModal()">
                 <img src="assets/poster.png" alt="Checklist Reviewer Poster" class="poster-thumbnail">
                 <div class="poster-overlay">
                     <i class="fa-solid fa-magnifying-glass-plus"></i> View Full Poster
                 </div>
+            </div>
+            <div class="poster-actions fade-in delay-3" aria-label="Poster actions">
+                <a class="btn btn-primary poster-action-btn" href="assets/poster.pdf" download>
+                    <i class="fa-regular fa-file-pdf" aria-hidden="true"></i>
+                    <span>Download poster (PDF)</span>
+                </a>
             </div>
         </div>
     </section>
@@ -399,8 +422,28 @@
 
     <!-- Image Modal -->
     <div id="imageModal" class="modal">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <img class="modal-content" id="fullPoster">
+        <div class="lightbox" role="dialog" aria-modal="true" aria-label="Poster viewer">
+            <button class="close lightbox-close" type="button" onclick="closeModal()" aria-label="Close poster viewer">
+                <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+            </button>
+
+            <div class="lightbox-toolbar" aria-label="Zoom controls">
+                <button type="button" class="lightbox-btn" data-lightbox-action="zoom_out" aria-label="Zoom out">
+                    <i class="fa-solid fa-magnifying-glass-minus" aria-hidden="true"></i>
+                </button>
+                <button type="button" class="lightbox-btn" data-lightbox-action="zoom_in" aria-label="Zoom in">
+                    <i class="fa-solid fa-magnifying-glass-plus" aria-hidden="true"></i>
+                </button>
+                <button type="button" class="lightbox-btn" data-lightbox-action="reset" aria-label="Reset view">
+                    <i class="fa-solid fa-rotate-left" aria-hidden="true"></i>
+                </button>
+                <span class="lightbox-help" aria-hidden="true">Scroll to zoom · Drag to pan</span>
+            </div>
+
+            <div class="lightbox-viewport" data-lightbox-viewport aria-label="Poster viewport">
+                <img class="lightbox-img" id="fullPoster" alt="Checklist Reviewer Poster (full size)" draggable="false">
+            </div>
+        </div>
     </div>
 
     <!-- Info Modal -->

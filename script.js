@@ -54,6 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     initHeroDemo();
+    initPosterLightbox();
 });
 
 /**
@@ -500,6 +501,171 @@ function initHeroDemo() {
     runSetupPhase(cycleToken);
 }
 
+function initPosterLightbox() {
+    const modal = document.getElementById('imageModal');
+    if (!modal) return;
+
+    const img = document.getElementById('fullPoster');
+    const viewport = modal.querySelector('[data-lightbox-viewport]');
+    const toolbar = modal.querySelector('.lightbox-toolbar');
+    if (!img || !viewport || !toolbar) return;
+
+    const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
+
+    const state = {
+        scale: 1,
+        isDragging: false,
+        startX: 0,
+        startY: 0,
+        startScrollLeft: 0,
+        startScrollTop: 0,
+        raf: null,
+    };
+
+    const MIN_SCALE = 0.15;
+    const MAX_SCALE = 6;
+
+    const getViewportPadding = () => {
+        const cs = window.getComputedStyle(viewport);
+        const px = Number.parseFloat(cs.paddingLeft) || 0;
+        const py = Number.parseFloat(cs.paddingTop) || 0;
+        return { padX: px, padY: py };
+    };
+
+    const updatePadding = () => {
+        const nw = img.naturalWidth || 0;
+        const nh = img.naturalHeight || 0;
+        const scaledW = nw * state.scale;
+        const scaledH = nh * state.scale;
+        const vw = viewport.clientWidth || 0;
+        const vh = viewport.clientHeight || 0;
+
+        const padX = Math.max(0, (vw - scaledW) / 2);
+        const padY = Math.max(0, (vh - scaledH) / 2);
+        viewport.style.setProperty('--lb-pad-x', `${padX}px`);
+        viewport.style.setProperty('--lb-pad-y', `${padY}px`);
+    };
+
+    const scheduleApplyScale = () => {
+        if (state.raf) return;
+        state.raf = window.requestAnimationFrame(() => {
+            state.raf = null;
+            img.style.transform = `scale(${state.scale})`;
+            updatePadding();
+        });
+    };
+
+    const reset = () => {
+        const nh = img.naturalHeight || 0;
+        const nw = img.naturalWidth || 0;
+        const vh = viewport.clientHeight || 0;
+
+        // Default: fit-to-height (user-friendly for reading a poster).
+        // If the image isn't ready yet, fall back to 1.
+        let fitHeightScale = 1;
+        if (nh > 0 && vh > 0) {
+            fitHeightScale = vh / nh;
+        }
+
+        // Guard against extreme scales when the viewport is tiny.
+        // (We still allow zooming further in/out afterwards.)
+        state.scale = clamp(fitHeightScale, MIN_SCALE, MAX_SCALE);
+        if (nw > 0) img.style.width = `${nw}px`;
+        if (nh > 0) img.style.height = `${nh}px`;
+        scheduleApplyScale();
+
+        // Center the view after applying scale.
+        window.requestAnimationFrame(() => {
+            const scaledW = nw * state.scale;
+            const scaledH = nh * state.scale;
+            viewport.scrollLeft = Math.max(0, (scaledW - viewport.clientWidth) / 2);
+            viewport.scrollTop = Math.max(0, (scaledH - viewport.clientHeight) / 2);
+        });
+    };
+
+    const zoomAt = (nextScale, clientX, clientY) => {
+        const prev = state.scale;
+        const target = clamp(nextScale, MIN_SCALE, MAX_SCALE);
+        if (target === prev) return;
+
+        const rect = viewport.getBoundingClientRect();
+        const { padX, padY } = getViewportPadding();
+        const mxScreen = clientX - rect.left;
+        const myScreen = clientY - rect.top;
+        const mx = mxScreen - padX;
+        const my = myScreen - padY;
+
+        // Keep the content point under the cursor stable during zoom.
+        const contentX = (viewport.scrollLeft + mx) / prev;
+        const contentY = (viewport.scrollTop + my) / prev;
+
+        state.scale = target;
+        scheduleApplyScale();
+
+        window.requestAnimationFrame(() => {
+            // Re-read padding because it may change after scaling.
+            const nextPad = getViewportPadding();
+            const nextMx = mxScreen - nextPad.padX;
+            const nextMy = myScreen - nextPad.padY;
+            viewport.scrollLeft = contentX * target - nextMx;
+            viewport.scrollTop = contentY * target - nextMy;
+        });
+    };
+
+    const onWheel = (e) => {
+        if (modal.style.display !== 'flex') return;
+        e.preventDefault();
+        const zoomIn = e.deltaY < 0;
+        const factor = zoomIn ? 1.12 : 1 / 1.12;
+        zoomAt(state.scale * factor, e.clientX, e.clientY);
+    };
+
+    const onPointerDown = (e) => {
+        if (modal.style.display !== 'flex') return;
+        if (e.button !== undefined && e.button !== 0) return;
+        e.preventDefault();
+        state.isDragging = true;
+        state.startX = e.clientX;
+        state.startY = e.clientY;
+        state.startScrollLeft = viewport.scrollLeft;
+        state.startScrollTop = viewport.scrollTop;
+        viewport.setPointerCapture?.(e.pointerId);
+    };
+
+    const onPointerMove = (e) => {
+        if (!state.isDragging) return;
+        const dx = e.clientX - state.startX;
+        const dy = e.clientY - state.startY;
+        viewport.scrollLeft = state.startScrollLeft - dx;
+        viewport.scrollTop = state.startScrollTop - dy;
+    };
+
+    const endDrag = () => {
+        state.isDragging = false;
+    };
+
+    toolbar.addEventListener('click', (e) => {
+        const btn = e.target?.closest?.('[data-lightbox-action]');
+        if (!btn) return;
+        const action = btn.getAttribute('data-lightbox-action');
+
+        if (action === 'zoom_in') zoomAt(state.scale * 1.2, window.innerWidth / 2, window.innerHeight / 2);
+        if (action === 'zoom_out') zoomAt(state.scale / 1.2, window.innerWidth / 2, window.innerHeight / 2);
+        if (action === 'reset') reset();
+    });
+
+    viewport.addEventListener('wheel', onWheel, { passive: false });
+    viewport.addEventListener('pointerdown', onPointerDown);
+    viewport.addEventListener('pointermove', onPointerMove);
+    viewport.addEventListener('pointerup', endDrag);
+    viewport.addEventListener('pointercancel', endDrag);
+    viewport.addEventListener('pointerleave', endDrag);
+
+    img.addEventListener('load', reset);
+
+    window.__posterLightbox = { reset };
+}
+
 // Info Modal Data
 const infoData = {
     'manual': {
@@ -582,6 +748,7 @@ function openModal() {
     modal.style.display = "flex";
     modalImg.src = "assets/poster.png";
     document.body.style.overflow = "hidden";
+    window.__posterLightbox?.reset?.();
 }
 
 function closeModal() {
