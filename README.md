@@ -26,3 +26,10 @@ The website highlights:
 ## Attribution
 
 Authorship and affiliation details are presented directly on the website hero section.
+
+## License
+
+- **Code**: MIT — see `LICENSE`.
+- **Content / written material / graphics**: CC BY-NC 4.0 — see `LICENSE-CONTENT`.
+
+If you reuse content from this repository, please **acknowledge the project and authors** and **indicate changes** (per CC BY-NC 4.0).
