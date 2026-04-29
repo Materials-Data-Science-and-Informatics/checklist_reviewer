@@ -55,7 +55,53 @@ document.addEventListener('DOMContentLoaded', () => {
 
     initHeroDemo();
     initPosterLightbox();
+    initPlaygroundGate();
 });
+
+const PLAYGROUND_URL = 'https://hemati.xyz/checklist_reviewer_playground';
+
+let playgroundGateLastFocus = null;
+
+function openPlaygroundGateModal() {
+    const modal = document.getElementById('playgroundGateModal');
+    const confirmBtn = document.getElementById('playgroundGateConfirm');
+    if (!modal) return;
+    playgroundGateLastFocus = document.activeElement;
+    modal.style.display = 'flex';
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    confirmBtn?.focus();
+}
+
+function closePlaygroundGateModal() {
+    const modal = document.getElementById('playgroundGateModal');
+    if (!modal) return;
+    modal.style.display = 'none';
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = 'auto';
+    if (playgroundGateLastFocus && typeof playgroundGateLastFocus.focus === 'function') {
+        playgroundGateLastFocus.focus();
+    }
+    playgroundGateLastFocus = null;
+}
+
+function confirmPlaygroundOpen() {
+    window.open(PLAYGROUND_URL, '_blank', 'noopener,noreferrer');
+    closePlaygroundGateModal();
+}
+
+function initPlaygroundGate() {
+    const modal = document.getElementById('playgroundGateModal');
+    const trigger = document.getElementById('playgroundGateTrigger');
+    const confirmBtn = document.getElementById('playgroundGateConfirm');
+    if (!modal || !trigger) return;
+
+    trigger.addEventListener('click', openPlaygroundGateModal);
+    confirmBtn?.addEventListener('click', confirmPlaygroundOpen);
+    modal.querySelectorAll('[data-playground-gate-close]').forEach((el) => {
+        el.addEventListener('click', closePlaygroundGateModal);
+    });
+}
 
 /**
  * Hero mock card: ring cursor on setup only — upload → dropdowns → Run Review → checklist → analysis (no cursor) → loop.
@@ -761,11 +807,15 @@ function closeModal() {
 window.onclick = function(event) {
     const imageModal = document.getElementById("imageModal");
     const infoModal = document.getElementById("infoModal");
+    const playgroundGateModal = document.getElementById("playgroundGateModal");
     if (event.target == imageModal) {
         closeModal();
     }
     if (event.target == infoModal) {
         closeInfoModal();
+    }
+    if (event.target == playgroundGateModal) {
+        closePlaygroundGateModal();
     }
 }
 
@@ -774,5 +824,6 @@ document.addEventListener('keydown', function(event) {
     if (event.key === "Escape") {
         closeModal();
         closeInfoModal();
+        closePlaygroundGateModal();
     }
 });

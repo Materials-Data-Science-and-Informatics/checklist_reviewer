@@ -40,10 +40,10 @@
                         <i class="fab fa-github" aria-hidden="true"></i>
                         <span>GitHub repo</span>
                     </a>
-                    <a href="#" class="btn btn-secondary is-disabled" aria-disabled="true" tabindex="-1" title="Coming soon">
+                    <button type="button" class="btn btn-playground" id="playgroundGateTrigger" aria-haspopup="dialog" aria-controls="playgroundGateModal">
                         <i class="fa-solid fa-laptop-code" aria-hidden="true"></i>
                         <span>Playground</span>
-                    </a>
+                    </button>
                 </div>
             </div>
             
@@ -443,6 +443,37 @@
 
             <div class="lightbox-viewport" data-lightbox-viewport aria-label="Poster viewport">
                 <img class="lightbox-img" id="fullPoster" alt="Checklist Reviewer Poster (full size)" draggable="false">
+            </div>
+        </div>
+    </div>
+
+    <!-- Playground gate: explain external VPS-hosted demo before opening a new tab -->
+    <div id="playgroundGateModal" class="modal playground-gate-modal" aria-hidden="true">
+        <div class="playground-gate-panel" role="dialog" aria-modal="true" aria-labelledby="playgroundGateTitle" aria-describedby="playgroundGateDesc">
+            <button type="button" class="close playground-gate-close" data-playground-gate-close aria-label="Close dialog">
+                <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+            </button>
+
+            <div class="playground-gate-glow" aria-hidden="true"></div>
+            <div class="playground-gate-header">
+                <div class="playground-gate-icon-ring" aria-hidden="true">
+                    <span class="playground-gate-icon">
+                        <i class="fa-solid fa-laptop-code"></i>
+                    </span>
+                </div>
+                <p class="playground-gate-kicker">Interactive demo</p>
+                <h2 id="playgroundGateTitle" class="playground-gate-title">Open the live playground?</h2>
+                <p id="playgroundGateDesc" class="playground-gate-lead">
+                    Choosing Continue opens our read-only toolkit demo in a new browser tab. The playground currently runs on a small dedicated server (personal VPS)—there is nothing to install, and your visit is an ordinary website visit like any other external link.
+                </p>
+            </div>
+
+            <div class="playground-gate-actions">
+                <button type="button" class="btn btn-tertiary playground-gate-cancel" data-playground-gate-close>Stay on this page</button>
+                <button type="button" class="btn btn-primary playground-gate-confirm" id="playgroundGateConfirm">
+                    <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                    <span>Continue to playground</span>
+                </button>
             </div>
         </div>
     </div>
